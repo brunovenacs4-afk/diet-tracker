@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: emagrecer-neh-carai
+    runtime: static
+    rootDir: .
+    buildCommand: corepack enable && pnpm install --frozen-lockfile=false && pnpm --filter @workspace/diet-tracker run build:web
+    staticPublishPath: artifacts/diet-tracker/dist
+    pullRequestPreviewsEnabled: false
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /assets_expo/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
