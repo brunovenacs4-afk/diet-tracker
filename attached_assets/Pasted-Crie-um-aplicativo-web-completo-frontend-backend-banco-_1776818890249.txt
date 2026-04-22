@@ -1,0 +1,269 @@
+Crie um aplicativo web completo (frontend + backend + banco de dados) para controle de dieta, calorias e consumo de água.
+
+STACK:
+- Frontend: React + TailwindCSS + Framer Motion (animações)
+- Backend: Node.js com Express
+- Banco de dados: SQLite (simples e leve)
+- Estrutura organizada em pastas (client/server)
+- Código limpo e comentado
+
+OBJETIVO DO APP:
+Um app simples, bonito e moderno para controle diário de calorias, alimentos consumidos, ingestão de água e perfil do usuário, com linguagem totalmente informal e motivacional.
+
+---------------------------------------
+
+FUNCIONALIDADES PRINCIPAIS:
+
+1) DASHBOARD (TELA PRINCIPAL)
+- Mostrar:
+  - Total de calorias consumidas no dia
+  - Meta de calorias (definida pelo usuário)
+  - Barra de progresso animada
+  - Consumo de água com barra animada
+- Mensagens motivacionais INFORMAL, tipo:
+  - "Tá mandando bem, meu patrão!"
+  - "Segue firme, monstro!"
+  - "Vai perdendo medida aí, gigante!"
+  - "Hoje tá voando!"
+- As mensagens devem mudar dinamicamente com base no progresso
+
+---------------------------------------
+
+2) CONTROLE DE ALIMENTOS
+
+- Campo de busca com base de dados de alimentos
+- Cada alimento deve conter:
+  - nome
+  - calorias por 100g
+  - categoria
+
+- Permitir adicionar alimentos consumidos com diferentes medidas:
+  - gramas
+  - colher (sopa/chá)
+  - concha
+  - xícara
+  - unidade
+
+- Converter automaticamente para calorias com base na medida
+- Permitir:
+  - adicionar refeição
+  - remover refeição
+  - editar refeição
+
+---------------------------------------
+
+3) CONTROLE DE ÁGUA 💧
+
+- Definir meta diária de água (em litros)
+- Botões rápidos:
+  - +200ml
+  - +300ml
+  - +500ml
+- Barra de progresso animada
+
+- Feedback dinâmico:
+  - "Bora beber água, campeão!"
+  - "Hidratação tá em dia!"
+  - "Quase lá, não vacila!"
+
+- SISTEMA AVANÇADO:
+  - Histórico diário de consumo
+  - Gráfico dos últimos 7 dias
+  - Sistema de horários:
+    - manhã / tarde / noite com mensagens
+  - Barra muda de cor:
+    - vermelho (baixo)
+    - amarelo (médio)
+    - verde (meta atingida)
+  - Animação de água subindo
+  - Efeito splash ao adicionar água
+  - Sistema de streak:
+    - mostrar dias consecutivos batendo meta
+  - Permitir editar/remover registros
+
+---------------------------------------
+
+4) PERFIL DO USUÁRIO
+
+- Campos:
+  - Nome
+  - Altura
+  - Peso
+- Salvar no banco de dados
+
+---------------------------------------
+
+5) ABA DE DIETA
+
+- Cadastro de dieta:
+  - café da manhã
+  - almoço
+  - jantar
+  - lanches
+
+---------------------------------------
+
+6) ANIMAÇÕES
+
+- Usar Framer Motion:
+  - transição entre telas
+  - entrada de elementos
+  - barras animadas
+  - feedback visual
+
+- Scroll suave
+- Fade-in ao rolar
+
+---------------------------------------
+
+7) UI/UX (DESIGN BONITO)
+
+- Layout estilo app mobile
+- Navbar inferior com abas:
+  - Home
+  - Alimentos
+  - Água
+  - Dieta
+  - Perfil
+
+- Cards:
+  - rounded-2xl
+  - sombra suave
+  - hover com scale
+
+- Tipografia moderna
+- Ícones (lucide-react)
+- Botões com animação
+
+---------------------------------------
+
+8) GRÁFICOS 📊
+
+Usar Recharts:
+
+- Calorias:
+  - gráfico de barras (7 dias)
+
+- Água:
+  - gráfico de linha (7 dias)
+
+- Com:
+  - animação
+  - tooltip
+  - responsivo
+
+---------------------------------------
+
+9) MODO ESCURO 🌙
+
+- Botão toggle
+- Salvar no localStorage
+
+Modo claro:
+- fundo claro
+- texto escuro
+
+Modo escuro:
+- fundo #0f172a
+- cards #1e293b
+- texto branco
+
+- Transição suave
+- Gráficos adaptáveis ao tema
+
+---------------------------------------
+
+10) BACKEND
+
+Rotas:
+
+- Usuário:
+  - GET /user
+  - POST /user
+
+- Alimentos:
+  - GET /foods
+
+- Refeições:
+  - POST /meals
+  - GET /meals
+
+- Água:
+  - POST /water
+  - GET /water
+
+---------------------------------------
+
+11) BANCO DE DADOS
+
+Tabelas:
+
+- user
+- foods
+- meals
+- water_logs
+
+---------------------------------------
+
+12) BANCO DE ALIMENTOS COMPLETO
+
+Criar base com 50+ alimentos:
+
+CATEGORIAS:
+- carboidratos
+- proteínas
+- gorduras
+- frutas
+- bebidas
+- industrializados
+
+Exemplos:
+- arroz branco (130 kcal)
+- arroz integral (124 kcal)
+- frango (165 kcal)
+- carne (250 kcal)
+- ovo (155 kcal)
+- banana (89 kcal)
+- maçã (52 kcal)
+- pão francês (270 kcal)
+- leite (61 kcal)
+- pizza (266 kcal)
+- chocolate (546 kcal)
+
+Expandir automaticamente para 50+
+
+---------------------------------------
+
+13) EXPERIÊNCIA DO USUÁRIO
+
+- Loading states
+- Empty states:
+  - "Nada por aqui ainda, bora começar?"
+
+- Feedback:
+  - "Boa! Registrado!"
+  - "Aí sim, hidratando!"
+
+---------------------------------------
+
+14) DETALHES PREMIUM
+
+- Mostrar % da meta
+- Destaque ao bater meta
+- Animação leve de confete
+
+---------------------------------------
+
+15) EXTRA
+
+- Histórico diário
+- Reset automático por dia
+- Persistência no banco
+
+---------------------------------------
+
+GERE:
+- Código completo funcionando
+- Frontend e backend integrados
+- Estrutura organizada
+- Instruções para rodar no Replit
