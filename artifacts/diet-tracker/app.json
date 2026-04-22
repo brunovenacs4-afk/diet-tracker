@@ -21,7 +21,16 @@
       "package": "com.emagrecernehcarai.app"
     },
     "web": {
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/icon.png",
+      "name": "emagrecer neh carai",
+      "shortName": "Emagrecer",
+      "lang": "pt-BR",
+      "backgroundColor": "#000000",
+      "themeColor": "#f472b6",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "description": "Acompanhe calorias, água e treinos. Bora emagrecer, monstro!"
     },
     "plugins": [
       [

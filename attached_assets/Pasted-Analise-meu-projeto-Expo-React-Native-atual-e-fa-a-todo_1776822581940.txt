@@ -1,0 +1,137 @@
+Analise meu projeto Expo (React Native) atual e faça todos os ajustes necessários para:
+
+1) Transformar o app em uma aplicação web (Expo Web)
+2) Configurar corretamente como PWA (Progressive Web App)
+3) Garantir que funcione perfeitamente no navegador
+4) Deixar 100% pronto para deploy no Render como Static Site
+
+IMPORTANTE:
+- NÃO usar "expo-pwa" (não é necessário)
+- Usar apenas recursos nativos do Expo Web
+- Corrigir tudo automaticamente
+
+---------------------------------------
+
+1) CONFIGURAÇÃO DO EXPO WEB
+
+- Garantir que o projeto suporte web:
+  - react-native-web
+  - react-dom
+  - expo
+
+- Corrigir qualquer erro de compatibilidade web
+
+---------------------------------------
+
+2) CONFIGURAÇÃO PWA (CORRETA)
+
+Editar o app.json ou app.config.js para incluir:
+
+- name
+- slug
+- web:
+  - favicon
+  - backgroundColor
+  - themeColor
+  - display: "standalone"
+
+Exemplo esperado:
+
+{
+  "expo": {
+    "name": "Diet Tracker",
+    "slug": "diet-tracker",
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "backgroundColor": "#0f172a",
+      "themeColor": "#22c55e",
+      "display": "standalone"
+    }
+  }
+}
+
+---------------------------------------
+
+3) BUILD WEB
+
+- Executar:
+  npx expo export -p web
+
+- Garantir que a saída esteja em:
+  artifacts/diet-tracker/dist
+
+- Verificar que existem:
+  - index.html
+  - manifest.json
+  - assets/
+  - _redirects (para SPA)
+
+---------------------------------------
+
+4) REGRA SPA
+
+Criar arquivo _redirects dentro da pasta de build com:
+
+/*    /index.html    200
+
+---------------------------------------
+
+5) COMPATIBILIDADE
+
+- Garantir que AsyncStorage funciona na web (localStorage fallback)
+- Corrigir qualquer API que não funcione no navegador
+- Garantir que o app abre sem tela branca
+
+---------------------------------------
+
+6) RESPONSIVIDADE
+
+- Ajustar layout para funcionar bem:
+  - mobile
+  - desktop
+
+---------------------------------------
+
+7) VALIDAÇÃO FINAL
+
+Testar e garantir que:
+
+- O app abre no navegador
+- Navegação funciona
+- Dados salvam corretamente
+- Não há erros no console
+
+---------------------------------------
+
+8) PREPARAÇÃO PARA RENDER
+
+Confirmar que o projeto está pronto com:
+
+Build Command:
+npx expo export -p web
+
+Publish Directory:
+artifacts/diet-tracker/dist
+
+---------------------------------------
+
+9) LIMPEZA
+
+- Remover dependências desnecessárias (como expo-pwa se existir)
+- Corrigir imports quebrados
+- Garantir build limpo
+
+---------------------------------------
+
+10) RESULTADO FINAL
+
+Quero que você:
+
+- Faça todas as correções automaticamente
+- Gere o build final
+- Confirme que está pronto para deploy
+- Me diga apenas:
+
+"Projeto pronto para deploy no Render"
+
+Sem explicações longas.
