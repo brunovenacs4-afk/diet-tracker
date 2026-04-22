@@ -110,8 +110,8 @@ export default function HomeScreen() {
             <LinearGradient
               colors={
                 theme === "dark"
-                  ? ["#065f46", "#0e7490"]
-                  : ["#10b981", "#06b6d4"]
+                  ? ["#9d174d", "#0e7490"]
+                  : ["#f472b6", "#06b6d4"]
               }
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
