@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Dieta & Água",
-    "slug": "diet-tracker",
+    "name": "emagrecer neh carai",
+    "slug": "emagrecernehcarai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "diet-tracker",
+    "scheme": "emagrecernehcarai",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -14,9 +14,12 @@
       "backgroundColor": "#10b981"
     },
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.emagrecernehcarai.app"
     },
-    "android": {},
+    "android": {
+      "package": "com.emagrecernehcarai.app"
+    },
     "web": {
       "favicon": "./assets/images/icon.png"
     },

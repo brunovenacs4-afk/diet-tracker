@@ -78,6 +78,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="health"
+        options={{
+          title: "Saúde",
+          tabBarIcon: ({ color }) => <Feather name="activity" size={22} color={color} />,
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: "Perfil",

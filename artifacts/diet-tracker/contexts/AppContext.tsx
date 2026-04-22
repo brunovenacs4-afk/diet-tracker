@@ -50,12 +50,24 @@ export interface DietPlan {
   lanche: DietPlanItem[];
 }
 
+export interface Workout {
+  id: string;
+  workoutTypeId: string;
+  name: string;
+  met: number;
+  minutes: number;
+  caloriesBurned: number;
+  date: string;
+  time: string;
+}
+
 interface AppState {
   theme: Theme;
   profile: Profile;
   meals: Meal[];
   waterLogs: WaterLog[];
   dietPlan: DietPlan;
+  workouts: Workout[];
   ready: boolean;
   toggleTheme: () => void;
   setProfile: (p: Profile) => void;
@@ -67,6 +79,8 @@ interface AppState {
   updateWater: (id: string, ml: number) => void;
   addDietItem: (mealType: keyof DietPlan, text: string) => void;
   removeDietItem: (mealType: keyof DietPlan, id: string) => void;
+  addWorkout: (w: Omit<Workout, "id" | "date" | "time">) => void;
+  removeWorkout: (id: string) => void;
 }
 
 const STORAGE_KEY = "@diet_tracker_state_v1";
@@ -103,6 +117,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [waterLogs, setWaterLogs] = useState<WaterLog[]>([]);
   const [dietPlan, setDietPlan] = useState<DietPlan>(DEFAULT_DIET);
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [ready, setReady] = useState(false);
 
   // Load from storage
@@ -117,6 +132,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           if (Array.isArray(parsed.meals)) setMeals(parsed.meals);
           if (Array.isArray(parsed.waterLogs)) setWaterLogs(parsed.waterLogs);
           if (parsed.dietPlan) setDietPlan({ ...DEFAULT_DIET, ...parsed.dietPlan });
+          if (Array.isArray(parsed.workouts)) setWorkouts(parsed.workouts);
         }
       } catch {
         // ignore
@@ -131,9 +147,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (!ready) return;
     AsyncStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ theme, profile, meals, waterLogs, dietPlan }),
+      JSON.stringify({ theme, profile, meals, waterLogs, dietPlan, workouts }),
     ).catch(() => {});
-  }, [ready, theme, profile, meals, waterLogs, dietPlan]);
+  }, [ready, theme, profile, meals, waterLogs, dietPlan, workouts]);
 
   const toggleTheme = useCallback(() => {
     setTheme((t) => (t === "light" ? "dark" : "light"));
@@ -191,6 +207,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }));
   }, []);
 
+  const addWorkout = useCallback<AppState["addWorkout"]>((w) => {
+    const now = new Date();
+    const time = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+    setWorkouts((prev) => [
+      { ...w, id: genId(), date: todayStr(), time },
+      ...prev,
+    ]);
+  }, []);
+
+  const removeWorkout = useCallback((id: string) => {
+    setWorkouts((prev) => prev.filter((w) => w.id !== id));
+  }, []);
+
   const value = useMemo<AppState>(
     () => ({
       theme,
@@ -198,6 +227,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       meals,
       waterLogs,
       dietPlan,
+      workouts,
       ready,
       toggleTheme,
       setProfile,
@@ -209,6 +239,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       updateWater,
       addDietItem,
       removeDietItem,
+      addWorkout,
+      removeWorkout,
     }),
     [
       theme,
@@ -216,6 +248,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       meals,
       waterLogs,
       dietPlan,
+      workouts,
       ready,
       toggleTheme,
       setProfile,
@@ -227,6 +260,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       updateWater,
       addDietItem,
       removeDietItem,
+      addWorkout,
+      removeWorkout,
     ],
   );
 
@@ -245,6 +280,10 @@ export function caloriesForDate(meals: Meal[], date: string): number {
 
 export function waterForDate(logs: WaterLog[], date: string): number {
   return logs.filter((w) => w.date === date).reduce((s, w) => s + w.ml, 0);
+}
+
+export function burnedForDate(workouts: Workout[], date: string): number {
+  return workouts.filter((w) => w.date === date).reduce((s, w) => s + w.caloriesBurned, 0);
 }
 
 export function last7Days(): string[] {

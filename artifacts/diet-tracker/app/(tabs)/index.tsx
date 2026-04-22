@@ -19,6 +19,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { MiniBarChart } from "@/components/MiniBarChart";
 import { ProgressBar } from "@/components/ProgressBar";
 import {
+  burnedForDate,
   caloriesForDate,
   last7Days,
   todayStr,
@@ -37,12 +38,14 @@ const DAY_LABELS = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 export default function HomeScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { profile, meals, waterLogs, toggleTheme, theme } = useApp();
+  const { profile, meals, waterLogs, workouts, toggleTheme, theme } = useApp();
   const today = todayStr();
 
   const calories = caloriesForDate(meals, today);
+  const burned = burnedForDate(workouts, today);
+  const netCalories = Math.max(0, calories - burned);
   const water = waterForDate(waterLogs, today);
-  const calPct = profile.calorieGoal > 0 ? calories / profile.calorieGoal : 0;
+  const calPct = profile.calorieGoal > 0 ? netCalories / profile.calorieGoal : 0;
   const waterPct = profile.waterGoal > 0 ? water / profile.waterGoal : 0;
 
   const last7 = useMemo(() => last7Days(), []);
@@ -118,11 +121,16 @@ export default function HomeScreen() {
                 <View>
                   <Text style={styles.heroLabel}>Calorias hoje</Text>
                   <View style={styles.heroValueRow}>
-                    <Text style={styles.heroValue}>{calories}</Text>
+                    <Text style={styles.heroValue}>{netCalories}</Text>
                     <Text style={styles.heroGoal}>
                       / {profile.calorieGoal} kcal
                     </Text>
                   </View>
+                  {burned > 0 && (
+                    <Text style={styles.heroBurn}>
+                      {calories} consumidas − {burned} queimadas
+                    </Text>
+                  )}
                 </View>
                 <View style={styles.pctBadge}>
                   <Text style={styles.pctBadgeText}>
@@ -132,7 +140,7 @@ export default function HomeScreen() {
               </View>
               <View style={{ marginTop: 14 }}>
                 <ProgressBar
-                  value={calories}
+                  value={netCalories}
                   max={profile.calorieGoal}
                   color="rgba(255,255,255,0.95)"
                   trackColor="rgba(255,255,255,0.25)"
@@ -140,7 +148,7 @@ export default function HomeScreen() {
                 />
               </View>
               <Text style={styles.heroMsg}>
-                {getCalorieMessage(calories, profile.calorieGoal)}
+                {getCalorieMessage(netCalories, profile.calorieGoal)}
               </Text>
             </LinearGradient>
           </View>
@@ -282,6 +290,7 @@ const styles = StyleSheet.create({
   heroValue: { color: "#fff", fontSize: 38, fontFamily: "Inter_700Bold" },
   heroGoal: { color: "rgba(255,255,255,0.85)", fontSize: 14, fontFamily: "Inter_500Medium", marginLeft: 6 },
   heroMsg: { color: "#fff", fontSize: 14, fontFamily: "Inter_600SemiBold", marginTop: 14 },
+  heroBurn: { color: "rgba(255,255,255,0.85)", fontSize: 12, fontFamily: "Inter_500Medium", marginTop: 4 },
   pctBadge: {
     backgroundColor: "rgba(255,255,255,0.2)",
     paddingHorizontal: 12,
